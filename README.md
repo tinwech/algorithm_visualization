@@ -1,4 +1,4 @@
-# data_visualization <br />
+# Data Visualization <br />
 
 ## System 1: Sorting (Num1) <br />
 ![image](https://user-images.githubusercontent.com/80531783/142875320-4a1c246b-7621-43fc-9d88-873081358f41.png)
