@@ -9,9 +9,11 @@ m/M: merge sort <br />
 q/Q: quick sort <br />
 
 ## System 2: Graph <br />
+left click: select/drag node(select two node to create edge) <br />
+right click: add/delete node <br />
 q/Q: create default graph <br />
 w/W: create random graph <br />
 e/E: create double circular graph <br />
 r/R: create net circular graph <br />
 t/T: create net square graph <br />
-b/B: BFS" << endl;
+b/B: BFS <br />
