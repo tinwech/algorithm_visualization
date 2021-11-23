@@ -1,5 +1,5 @@
-#include "data_visualization.h"
 #include <iostream>
+#include "data_visualization.h"
 using namespace std;
 
 DataVisualization::DataVisualization() : sorting(window), graph(window) {

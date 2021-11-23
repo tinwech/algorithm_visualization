@@ -28,5 +28,6 @@ private:
 	void mergeSort(int start, int end);
 	int partition(int start, int end);
 	void quickSort(int front, int end);
+	void radixSort();
 };
 

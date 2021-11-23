@@ -1,10 +1,11 @@
 #pragma once
 #include "sorting.h"
 #include <iostream>
+#include <queue>
 using namespace std;
 
 Sorting::Sorting(sf::RenderWindow& window) : window(window) {
-	width = 8;
+	width = 3; //no less than 3
 	numberOfComparison = 0;
 	if (!font.loadFromFile("Menlo_for_Powerline.ttf")) {
 		cout << "unable to load font" << endl;
@@ -18,7 +19,7 @@ void Sorting::run(sf::Event &event) {
 	if (event.type != sf::Event::KeyPressed) return;
 
 	switch (event.key.code) {
-	case sf::Keyboard::R:
+	case sf::Keyboard::Num0:
 		reset();
 		cout << "data reseted" << endl;
 		return;
@@ -51,6 +52,12 @@ void Sorting::run(sf::Event &event) {
 		start = std::time(NULL);
 		quickSort(0, n - 1);
 		cout << "quickSorted" << endl;
+		break;
+	case sf::Keyboard::R:
+		window.setTitle("Sorting: Radix Sort");
+		start = std::time(NULL);
+		radixSort();
+		cout << "radixSorted" << endl;
 		break;
 	default:
 		return;
@@ -213,5 +220,28 @@ void Sorting::quickSort(int start, int end) {
 		for (int i = start; i <= end; i++) {
 			data[i].setFillColor(Orange);
 		}
+	}
+}
+void Sorting::radixSort() {
+	int MAX = window.getSize().y;
+	vector<queue<sf::RectangleShape>> buckets(10);
+	int radix = 1;
+	while (radix <= MAX) {
+		for (int i = 0; i < n; i++) {
+			int LSD = ((int)data[i].getSize().y / radix) % 10;
+			buckets[LSD].push(data[i]);
+		}
+		int index = 0;
+		for (int i = 0; i < 10; i++) {
+			while (!buckets[i].empty()) {
+				data[index] = buckets[i].front();
+				buckets[i].pop();
+				data[index].setFillColor(sf::Color::Red);
+				update();
+				data[index].setFillColor(sf::Color::White);
+				index++;
+			}
+		}
+		radix *= 10;
 	}
 }
