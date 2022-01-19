@@ -6,6 +6,10 @@ using namespace std;
 
 Graph::Graph(sf::RenderWindow& window) : window(window) {
 	reset();
+	if (!font.loadFromFile("Menlo_for_Powerline.ttf")) {
+		cout << "unable to load font" << endl;
+		exit(1);
+	}
 }
 void Graph::init() {
 	maxNumNodes = 1000;
@@ -20,6 +24,7 @@ void Graph::init() {
 	curNumFreeEdges = maxNumEdges;
 	curNumActiveNodes = 0;
 	curNumActiveEdges = 0;
+	p = new int[maxNumNodes];
 	freeNode = new int[maxNumNodes];
 	freeEdge = new int[maxNumNodes];
 	activeNode = new int[maxNumNodes];
@@ -338,6 +343,9 @@ void Graph::run(sf::Event& event) {
 			if (selectedNode)
 				BFS(selectedNode->id);
 		}
+		else if (event.key.code == sf::Keyboard::M) {
+			mst();
+		}
 	}
 }
 void Graph::draw() {
@@ -350,7 +358,7 @@ void Graph::draw() {
 			sf::Vertex(n1->center),
 			sf::Vertex(n2->center)
 		};
-		window.draw(line, 2, sf::Lines);
+		window.draw(line, 5, sf::Lines);
 	}
 	//draw nodes
 	for (int i = 0; i < curNumActiveNodes; i++) {
@@ -373,6 +381,15 @@ void Graph::draw() {
 			circle.setFillColor(sf::Color(180, 180, 180));
 		}
 		window.draw(circle);
+		/*
+		sf::Text info;
+		info.setFont(font);
+		info.setCharacterSize(16);
+		info.setFillColor(sf::Color::Yellow);
+		info.setString(to_string(n->dynamicID));
+		info.setPosition(n->pos);
+		window.draw(info);
+		*/
 	}
 }
 double Graph::getDistance(double x1, double y1, double x2, double y2) {
@@ -468,4 +485,37 @@ void Graph::BFS(int id) {
 			maxDepth = n->depth + 1;
 	}
 	deSelect();
+}
+int Graph::find(int id) {
+	if (id == p[id]) {
+		return id;
+	}
+	else {
+		return p[id] = find(p[id]);
+	}
+}
+void Graph::merge(int a, int b) {
+	p[find(a)] = find(b);
+}
+void Graph::mst() {
+	for (int i = 0; i < maxNumNodes; i++) p[i] = i;
+	for (int i = 0; i < curNumActiveEdges; i++) {
+		Edge* e = &edge[activeEdge[i]];
+		Node* n1 = &node[e->nodeID[0]];
+		Node* n2 = &node[e->nodeID[1]];
+		int a = n1->id;
+		int b = n2->id;
+		if (find(a) == find(b)) {
+			e->active = false;
+			continue;
+		}
+		merge(a, b);
+	}
+	for (int i = 0; i < curNumActiveEdges; i++) {
+		Edge* e = &edge[activeEdge[i]];
+		if (!e->active) {
+			deleteEdge(e->id);
+			i--;
+		}
+	}
 }

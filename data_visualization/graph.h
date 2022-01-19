@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 struct Node {
 	Node() : pos(sf::Vector2f(0, 0)) {}
@@ -17,6 +18,7 @@ struct Node {
 struct Edge {
 	int id;
 	int dynamicID;
+	bool active;
 	int nodeID[2];
 };
 class Graph {
@@ -49,6 +51,9 @@ public:
 	void DFS(int id);
 	void BFS(int id);
 	void resetDepth();
+	int find(int id);
+	void merge(int a, int b);
+	void mst();
 
 private:
 	sf::RenderWindow& window;
@@ -71,4 +76,6 @@ private:
 	int maxDepth = 0;
 	int dragID = -1;
 	bool mouseHold = false;
+	sf::Font font;
+	int *p;
 };
