@@ -1,4 +1,4 @@
-# Data Visualization
+# Algorithm Visualization
 
 ## Sorting (Num1)
 | Key | Command |
