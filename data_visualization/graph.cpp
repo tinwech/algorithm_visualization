@@ -34,6 +34,7 @@ void Graph::init() {
 	for (int i = 0; i < maxNumNodes; i++) {
 		freeNode[i] = i;
 		node[i].id = i;
+		p[i] = i;
 	}
 	edge = new Edge[maxNumEdges];
 	for (int i = 0; i < maxNumEdges; i++) {
@@ -225,7 +226,7 @@ void Graph::activelySelect(double mouseX, double mouseY) {
 			if (!selectedNode)
 				selectedNode = n;
 			else {
-				addEdge(n->id, selectedNode->id);
+				addEdge(selectedNode->id, n->id);
 				n->selected = false;
 				deSelect();
 			}
@@ -347,6 +348,7 @@ void Graph::run(sf::Event& event) {
 			mst();
 		}
 	}
+	scc();
 }
 void Graph::draw() {
 	//draw edges
@@ -358,7 +360,9 @@ void Graph::draw() {
 			sf::Vertex(n1->center),
 			sf::Vertex(n2->center)
 		};
-		window.draw(line, 5, sf::Lines);
+		line[0].color = sf::Color(255, 140, 0, 255);
+		line[1].color = sf::Color::Blue;
+		window.draw(line, 2, sf::Lines);
 	}
 	//draw nodes
 	for (int i = 0; i < curNumActiveNodes; i++) {
@@ -378,7 +382,11 @@ void Graph::draw() {
 			circle.setFillColor(sf::Color(255 - 255 * n->depth / (double)(maxDepth + 2), 50, 100));
 		}
 		else {
-			circle.setFillColor(sf::Color(180, 180, 180));
+			srand(p[n->id]);
+			int r = (rand() + 50) % 256;
+			int g = (rand() + 50) % 256;
+			int b = (rand() + 50) % 256;
+			circle.setFillColor(sf::Color(r, g, b));
 		}
 		window.draw(circle);
 		/*
@@ -448,9 +456,6 @@ int Graph::addEdge(int id_0, int id_1) {
 	node[id_1].edgeID.push_back(e->id);
 	return e->id;
 }
-void Graph::DFS(int id) {
-
-}
 void Graph::resetDepth() {
 	for (int i = 0; i < curNumActiveNodes; i++) {
 		Node* n = &node[activeNode[i]];
@@ -458,10 +463,10 @@ void Graph::resetDepth() {
 	}
 }
 void Graph::BFS(int id) {
-	int depth = 0;
-	queue<int, list<int> > q;
+	int depth = 1;
+	queue<int> q;
 	Node *n = &node[id];
-	node->depth = depth;
+	n->depth = 1;
 	q.push(id);
 	while (!q.empty()) {
 		id = q.front();
@@ -470,12 +475,13 @@ void Graph::BFS(int id) {
 		for (int i = 0; i < n->edgeID.size(); i++) {
 			int edgeID = n->edgeID[i];
 			Edge *e = &edge[edgeID];
-			int adjID;
+			int adjID = e->nodeID[1];
+			/*
 			if (id == e->nodeID[0])
 				adjID = e->nodeID[1];
 			else
 				adjID = e->nodeID[0];
-
+			*/
 			Node *adj = &node[adjID];
 			if (adj->depth != 0) continue;
 			q.push(adjID);
@@ -484,6 +490,7 @@ void Graph::BFS(int id) {
 		if (q.size() == 0)
 			maxDepth = n->depth + 1;
 	}
+	cout << n->depth << endl;
 	deSelect();
 }
 int Graph::find(int id) {
@@ -517,5 +524,43 @@ void Graph::mst() {
 			deleteEdge(e->id);
 			i--;
 		}
+	}
+}
+void Graph::scc() {
+	f.clear();
+	visit.clear();
+	visit.resize(maxNumNodes);
+	for (int i = 0; i < curNumActiveNodes; i++) {
+		Node* n = &node[activeNode[i]];
+		dfs1(n->id);
+	}
+	visit.clear();
+	visit.resize(maxNumNodes);
+	for (int i = 0; i < maxNumNodes; i++) p[i] = i;
+	for (int i = f.size() - 1; i >= 0; i--) {
+		Node* n = &node[f[i]];
+		dfs2(n->id, n->id);
+	}
+}
+void Graph::dfs1(int id) {
+	if (visit[id]) return;
+	visit[id] = true;
+	Node* n = &node[id];
+	for (int i = 0; i < n->edgeID.size(); i++) {
+		Edge* e = &edge[n->edgeID[i]];
+		Node* next = &node[e->nodeID[1]];
+		dfs1(next->id);
+	}
+	f.push_back(n->id);
+}
+void Graph::dfs2(int id, int root) {
+	if (visit[id]) return;
+	visit[id] = true;
+	p[id] = root;
+	Node* n = &node[id];
+	for (int i = 0; i < n->edgeID.size(); i++) {
+		Edge* e = &edge[n->edgeID[i]];
+		Node* next = &node[e->nodeID[0]];
+		dfs2(next->id, root);
 	}
 }

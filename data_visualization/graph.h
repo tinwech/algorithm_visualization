@@ -54,6 +54,9 @@ public:
 	int find(int id);
 	void merge(int a, int b);
 	void mst();
+	void scc();
+	void dfs1(int id);
+	void dfs2(int id, int root);
 
 private:
 	sf::RenderWindow& window;
@@ -78,4 +81,6 @@ private:
 	bool mouseHold = false;
 	sf::Font font;
 	int *p;
+	std::vector<int> f;
+	std::vector<bool> visit;
 };
