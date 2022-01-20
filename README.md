@@ -1,6 +1,6 @@
 # Data Visualization
 
-## System 1: Sorting (Num1)
+## Sorting (Num1)
 | Key | Command |
 | ----| --------|
 | 0   | reset data |  
@@ -15,7 +15,7 @@
 ![image](https://user-images.githubusercontent.com/80531783/142875472-27570371-f5b8-473d-b6b4-9cc19c2b34c0.png)
 
 
-## System 2: Graph (Num2)
+## Directed Graph (Num2)
 | Key | Command |
 | ----| --------|
 | left click| select/drag node(select two node to create edge)|
@@ -28,4 +28,12 @@
 | b/B| BFS|
 | m/M| get minimum spanning tree|
 
-![image](https://user-images.githubusercontent.com/80531783/142875546-8e971c11-d6e0-4ec9-8050-6c5a645d1520.png)
+### BFS
+![image](https://user-images.githubusercontent.com/80531783/150354500-baf5d21f-d2ff-44e0-aca1-8e0a329953da.png)
+![image](https://user-images.githubusercontent.com/80531783/150354430-9e16202b-c5db-4447-b524-071237beae5b.png)
+### Strongly Connected Components
+same color indicates that they are strongly connected
+![image](https://user-images.githubusercontent.com/80531783/150354178-7d158f2a-b0e7-48f9-b956-5a493d32e82f.png)
+![image](https://user-images.githubusercontent.com/80531783/150354367-0baf6533-4aa1-4dcf-9e80-9864eba2627c.png)
+
+
