@@ -1,7 +1,7 @@
 # Algorithm Visualization
 
 ## Sorting (Num1)
-| Key | Command |
+| Command | Action |
 | ----| --------|
 | 0   | reset data |  
 | b/B | bubble sort |
@@ -16,7 +16,7 @@
 
 
 ## Directed Graph (Num2)
-| Key | Command |
+| Command | Action |
 | ----| --------|
 | left click| select/drag node(select two node to create edge)|
 | right click| add/delete node|
