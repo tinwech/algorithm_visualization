@@ -7,6 +7,7 @@ using namespace std;
 Sorting::Sorting(sf::RenderWindow& window) : window(window) {
 	width = 5; //no less than 3
 	numberOfComparison = 0;
+
 	if (!font.loadFromFile("Menlo_for_Powerline.ttf")) {
 		cout << "unable to load font" << endl;
 		exit(1);
