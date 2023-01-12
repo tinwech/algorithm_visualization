@@ -1,5 +1,7 @@
 # Algorithm Visualization
 
+This repository visualize common sorting and graph algorithms.
+
 ## Sorting (Key：1)
 | Key | Action |
 | ----| --------|
