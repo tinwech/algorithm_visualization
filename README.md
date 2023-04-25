@@ -2,7 +2,10 @@
 
 This repository visualize common sorting and graph algorithms.
 
-## Sorting (Key：1)
+## Demo
+
+### Sorting (Key：1)
+
 | Key | Action |
 | ----| --------|
 | 0   | reset data |  
@@ -13,11 +16,16 @@ This repository visualize common sorting and graph algorithms.
 | Q | quick sort |
 | R | radix sort |
 
-![image](https://user-images.githubusercontent.com/80531783/142875320-4a1c246b-7621-43fc-9d88-873081358f41.png)
-![image](https://user-images.githubusercontent.com/80531783/142875472-27570371-f5b8-473d-b6b4-9cc19c2b34c0.png)
+#### Bubble sort
+
+![Picture1](https://user-images.githubusercontent.com/80531783/234350422-5714f2ee-c2d3-474f-b83c-08a90791cd89.gif)
+
+#### Quick sort
+
+![Picture2](https://user-images.githubusercontent.com/80531783/234350473-7df24bf7-04e5-4e7c-a863-4410758408bb.gif)
 
 
-## Directed Graph (Key：2)
+### Graph (Key：2)
 | Key | Action |
 | ----| --------|
 | left click| select/drag node(select two node to create edge)|
@@ -31,13 +39,12 @@ This repository visualize common sorting and graph algorithms.
 | M| get minimum spanning tree|
 
 ### BFS
-![image](https://user-images.githubusercontent.com/80531783/150354500-baf5d21f-d2ff-44e0-aca1-8e0a329953da.png)
-![image](https://user-images.githubusercontent.com/80531783/150354430-9e16202b-c5db-4447-b524-071237beae5b.png)
+
+![Picture4](https://user-images.githubusercontent.com/80531783/234351286-4e6d8dec-f899-4f8c-9083-2aabde5009c7.gif)
 
 ### Strongly Connected Components
-same color indicates that they are strongly connected 
 
-![image](https://user-images.githubusercontent.com/80531783/150354178-7d158f2a-b0e7-48f9-b956-5a493d32e82f.png)
-![image](https://user-images.githubusercontent.com/80531783/150354367-0baf6533-4aa1-4dcf-9e80-9864eba2627c.png)
+Same color indicates that they are strongly connected 
 
+![Picture3](https://user-images.githubusercontent.com/80531783/234351343-26b01069-59f0-4210-ab10-98f56fd87d5c.gif)
 
